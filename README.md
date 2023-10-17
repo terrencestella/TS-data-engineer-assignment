@@ -1,2 +1,0 @@
-# TS-data-engineer-assignment
- 
