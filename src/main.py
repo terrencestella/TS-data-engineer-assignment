@@ -1,6 +1,7 @@
 import argparse
 from pyspark.sql import SparkSession
 import os
+import functions
 
 #to get the current working directory
 dir = os.getcwd()
@@ -14,8 +15,20 @@ parser.add_argument('financials_file',type=str,help='The file name (including ex
 parser.add_argument('country_filters',type=str,help='The country or countries to be applied as filter on the dataset') 
 args = parser.parse_args()
 
-# clients = spark.read.csv(fr'{dir}\{args.clients_file}',header=True)
-# financials = spark.read.csv(fr'{dir}\{args.financials_file}',header=True)
-filter_countries = str(args.country_filters).split(',')
+renaming_columns = {
+    'id':'client_identifier',
+    'btc_a':'bitcoin_address',
+    'cc_t':'credit_card_type'
+    }
 
-print(filter_countries)
+def main(client_path, financial_path, countries):
+    spark = init_spark()
+    client_df = load_data(spark, client_path)
+    financial_df = load_data(spark, financial_path)
+    filtered_client_df = filter_data(client_df, countries)
+    renamed_financial_df = rename_columns(financial_df)
+    joined_df = filtered_client_df.join(renamed_financial_df, "client_identifier")
+    joined_df.write.csv("client_data/output.csv", header=True)
+
+if __name__ == "__main__":
+    main(args.clients_file,args.financials_file,str(args.country_filters).split(','))
