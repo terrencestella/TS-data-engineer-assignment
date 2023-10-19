@@ -18,7 +18,7 @@ class TestFunctions(unittest.TestCase):
         cls.spark = init_spark()
 
     def test_load_data(self):
-        path = "tests/fixtures/sample.csv"  # Replace with the path to a test CSV file
+        path = "tests/test.csv" 
         df = load_data(self.spark, path)
         self.assertIsNotNone(df)
 
@@ -27,7 +27,7 @@ class TestFunctions(unittest.TestCase):
         data = [("USA",), ("Canada",), ("UK",)]
         df = self.spark.createDataFrame(data, ["country"])
         filtered_df = filter_country(df, ["UK", "Canada"])
-        self.assertEqual(chispa.row_count(filtered_df), 2)
+        self.assertEqual(filtered_df.count(), 2)
 
     def test_drop_column(self):
         data = [("Alice", 1), ("Bob", 2)]
@@ -41,7 +41,7 @@ class TestFunctions(unittest.TestCase):
         df_a = self.spark.createDataFrame(data_a, ["name", "id"])
         df_b = self.spark.createDataFrame(data_b, ["id", "country"])
         joined_df = join_dfs(df_a, df_b, "id", "inner")
-        self.assertEqual(chispa.row_count(joined_df), 2)
+        self.assertEqual(joined_df.count(), 2)
 
     def test_rename_column(self):
         data = [("Alice", 1), ("Bob", 2)]
