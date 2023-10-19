@@ -3,17 +3,25 @@ import os
 import functions as f
 from logger_config import logger
 
-
-#to get the current working directory
+# Get the current working directory
 dir = os.getcwd()
+
+# Construct the path for the output file by appending the relative path to the current working directory
 output_path = dir + "\client_data\output.csv"
 
+# Create an ArgumentParser object to handle parsing the command line arguments
 parser = ArgumentParser(description='Application should receive three arguments, \
 the paths to each of the dataset files and also the countries to filter as \
 the client wants to reuse the code for other countries.')
-parser.add_argument('clients_file',type=str,help='The file name (including extension) containing the client data')
-parser.add_argument('financials_file',type=str,help='The file name (including extension) containing the client financial data')
-parser.add_argument('country_filters',type=str,help='The country or countries to be applied as filter on the dataset')
+
+# Add argument for the clients file to the parser
+parser.add_argument('clients_file', type=str, help='The file name (including extension) containing the client data')
+# Add argument for the financials file to the parser
+parser.add_argument('financials_file', type=str, help='The file name (including extension) containing the client financial data')
+# Add argument for the country filters to the parser
+parser.add_argument('country_filters', type=str, help='The country or countries to be applied as filter on the dataset')
+
+# Parse the command line arguments and store the parsed arguments in the 'args' object
 args = parser.parse_args()
 
 renaming_columns = {
