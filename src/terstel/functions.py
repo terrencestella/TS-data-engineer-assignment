@@ -1,4 +1,5 @@
 from pyspark.sql import SparkSession
+from logger_config import logger
 
 def init_spark():
     """
@@ -7,8 +8,13 @@ def init_spark():
     :return: The active SparkSession.
     :rtype: pyspark.sql.SparkSession
     """
-    spark = SparkSession.builder.appName("TS_exercise").getOrCreate()
-    return spark
+    try:
+        spark = SparkSession.builder.appName("TS_exercise").getOrCreate()
+        logger.info('Spark session started')
+        return spark
+    except Exception as e:
+        logger.exception(e)
+        
 
 def load_data(spark, path):
     """
@@ -21,8 +27,12 @@ def load_data(spark, path):
     :return: The DataFrame loaded from the CSV file.
     :rtype: pyspark.sql.DataFrame
     """
-    df = spark.read.csv(path, header=True, inferSchema=True)
-    return df
+    try:
+        df = spark.read.csv(path, header=True, inferSchema=True)
+        logger.info(f'successfully read CSV file stored in location: {path}')
+        return df
+    except Exception as e:
+        logger.exception(e)
 
 def filter_country(df,filter_countries):
     """
@@ -35,8 +45,12 @@ def filter_country(df,filter_countries):
     :return: The filtered DataFrame containing only the specified countries.
     :rtype: pyspark.sql.DataFrame
     """
-    df = df.filter(df['country'].isin(filter_countries))
-    return df
+    try: 
+        df = df.filter(df['country'].isin(filter_countries))
+        logger.info('filtered on following countries: {}'.format(str(filter_countries)))
+        return df
+    except Exception as e:
+        logger.exception(e)    
 
 def drop_column(df,column):
     """
@@ -49,8 +63,12 @@ def drop_column(df,column):
     :return: The DataFrame with the specified column dropped.
     :rtype: pyspark.sql.DataFrame
     """
-    df = df.drop(column)
-    return df
+    try:    
+        df = df.drop(column)
+        logger.info('dropped column {}'.format(column))
+        return df
+    except Exception as e:
+        logger.exception(e)   
 
 def join_dfs(df_a,df_b,on_column,join_type):
     """
@@ -67,8 +85,12 @@ def join_dfs(df_a,df_b,on_column,join_type):
     :return: The resulting DataFrame after performing the join.
     :rtype: pyspark.sql.DataFrame
     """
-    df = df_a.join(df_b,[on_column], join_type)
-    return df
+    try:
+        df = df_a.join(df_b,[on_column], join_type)
+        logger.info(f'successfully joined DataFrames on {on_column} column')
+        return df
+    except Exception as e:
+        logger.exception(e)
 
 def rename_column(df,rename_dict):
     """
@@ -82,6 +104,12 @@ def rename_column(df,rename_dict):
     :return: The DataFrame with renamed columns.
     :rtype: pyspark.sql.DataFrame
     """
-    for column in rename_dict:
-        df = df.withColumnRenamed(column,rename_dict[column])
-    return df
+    try:
+        logger.info('starting up renaming column(s)')
+        for column in rename_dict:
+            df = df.withColumnRenamed(column,rename_dict[column])
+            logger.info(f'renamed column {column} into {rename_dict[column]}')
+        logger.info('done renaming column(s)')
+        return df
+    except Exception as e:
+        logger.exception(e)
