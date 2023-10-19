@@ -1,5 +1,5 @@
 from pyspark.sql import SparkSession
-from config.logger_config import logger
+from logs.logger_config import logger
 
 def init_spark():
     """

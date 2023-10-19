@@ -1,7 +1,7 @@
 from argparse import ArgumentParser
 import os
 import functions as f
-from config.logger_config import logger
+from logs.logger_config import logger
 
 # Get the current working directory
 dir = os.getcwd()

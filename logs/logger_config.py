@@ -18,7 +18,7 @@ def setup_logging():
     logger.setLevel(logging.INFO)  # Set logging level to INFO or DEBUG as per your need
 
     # Create a handler that writes log messages to a file, with a daily log rotation
-    handler = TimedRotatingFileHandler('logs\daily_log_{}.log'.format(datetime.now().strftime('%Y_%m_%d')), when="midnight", interval=1, backupCount=30)
+    handler = TimedRotatingFileHandler('daily_log_{}.log'.format(datetime.now().strftime('%Y_%m_%d')), when="midnight", interval=1, backupCount=30)
     handler.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
 
     # Add the handler to the logger
