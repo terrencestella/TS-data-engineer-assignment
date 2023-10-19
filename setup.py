@@ -8,7 +8,7 @@ if __name__ == "__main__":
         packages=find_packages(where='src'),
         description='This package is the result of an exercise given to author',
         author='Terrence Stella',
-        author_email='terrence.stella@gmail.com',
+        author_email='terrence.s.stella@gmail.com',
         install_requires=['pyspark','argparse','chispa'],
         classifiers=[
             'License :: OSI Approved :: MIT License',
