@@ -1,0 +1,10 @@
+Metadata-Version: 2.1
+Name: TS-exercise-data-pipeline
+Version: 0.9.8
+Summary: This package is the result of an exercise given to author
+Home-page: https://github.com/terrencestella/TS-data-engineer-assignment
+Author: Terrence Stella
+Author-email: terrence.stella@gmail.com
+Keywords: KommatiPara
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3.8

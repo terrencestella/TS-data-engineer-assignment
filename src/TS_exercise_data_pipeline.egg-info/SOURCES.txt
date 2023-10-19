@@ -1,0 +1,8 @@
+MANIFEST.in
+README.md
+setup.py
+src/TS_exercise_data_pipeline.egg-info/PKG-INFO
+src/TS_exercise_data_pipeline.egg-info/SOURCES.txt
+src/TS_exercise_data_pipeline.egg-info/dependency_links.txt
+src/TS_exercise_data_pipeline.egg-info/requires.txt
+src/TS_exercise_data_pipeline.egg-info/top_level.txt

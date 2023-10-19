@@ -2,7 +2,7 @@ import logging
 from logging.handlers import TimedRotatingFileHandler
 from datetime import datetime
 
-def logger():
+def setup_logging():
     """
     Set up a logger named "DailyLogger" with a daily rotating file handler.
     
@@ -25,3 +25,5 @@ def logger():
     logger.addHandler(handler)
 
     return logger
+
+logger = setup_logging()
